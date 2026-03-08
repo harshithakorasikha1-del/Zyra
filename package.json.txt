@@ -1,0 +1,67 @@
+# Messaging App - Root Package.json
+
+This file is for reference. The actual package.json files are in:
+- Backend: ./backend/package.json
+- Frontend: ./frontend/package.json
+
+## Running Both Services
+
+### Development Mode
+
+```bash
+# Terminal 1 - Backend
+cd backend
+cp .env.example .env
+# Edit .env with your MongoDB URI and other settings
+npm install
+npm run dev
+
+# Terminal 2 - Frontend  
+cd frontend
+npm install
+npm run dev
+```
+
+### Docker Mode (Production-like)
+
+```bash
+# Build and run with docker-compose
+docker-compose up
+
+# This will:
+# - Start MongoDB on port 27017
+# - Start Backend on port 5000
+# - Start Frontend on port 3000
+```
+
+### Cleanup Docker
+
+```bash
+# Stop all services
+docker-compose down
+
+# Remove volumes
+docker-compose down -v
+```
+
+## Environment Variable Setup
+
+### Backend (.env)
+Copy from backend/.env.example and fill in:
+- MONGODB_URI: Your MongoDB connection string
+- JWT_SECRET: A secure random string
+- CORS_ORIGIN: http://localhost:3000 (or your domain)
+
+### Frontend (.env.local)
+Already configured for local development:
+- NEXT_PUBLIC_API_URL=http://localhost:5000/api
+- NEXT_PUBLIC_SOCKET_URL=http://localhost:5000
+
+## Project Structure
+```
+messaging-app/
+├── backend/           # Node.js + Express server
+├── frontend/          # Next.js + React app
+├── docker-compose.yml # Docker orchestration
+└── README.md          # Full documentation
+```
