@@ -13,12 +13,15 @@ dotenv.config();
 // Initialize Express and Socket.IO
 const app = express();
 const server = http.createServer(app);
-const io = socketIO(server, {
+const io = new Server(server, {
   cors: {
-    origin: process.env.CORS_ORIGIN || 'http://localhost:3000',
-    methods: ['GET', 'POST'],
-    credentials: true,
-  },
+    origin: [
+      "http://localhost:3000",
+      "https://zyra-steel.vercel.app"
+    ],
+    methods: ["GET", "POST"],
+    credentials: true
+  }
 });
 
 // Connect to Database
@@ -26,8 +29,11 @@ connectDB();
 
 // Middleware
 app.use(cors({
-  origin: process.env.CORS_ORIGIN || 'http://localhost:3000',
-  credentials: true,
+  origin: [
+    "http://localhost:3000",
+    "https://zyra-steel.vercel.app"
+  ],
+  credentials: true
 }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
